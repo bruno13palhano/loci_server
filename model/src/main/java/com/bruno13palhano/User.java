@@ -13,19 +13,25 @@ public class User implements UserDetails {
     private String email;
     private String password;
     private byte[] photo;
+    private String phone;
+    private String address;
+    private String city;
     private String role;
     private Boolean enabled;
     private String timestamp;
 
     public User() {}
 
-    public User(String uid, String username, String password, String email, byte[] photo, String role, Boolean enabled,
-                String timestamp) {
+    public User(String uid, String username, String password, String email, byte[] photo, String phone, String address,
+                String city, String role, Boolean enabled, String timestamp) {
         this.uid = uid;
         this.username = username;
         this.email = email;
         this.password = password;
         this.photo = photo;
+        this.phone = phone;
+        this.address = address;
+        this.city = city;
         this.role = role;
         this.enabled = enabled;
         this.timestamp = timestamp;
@@ -81,6 +87,46 @@ public class User implements UserDetails {
 
     public byte[] getPhoto() {
         return photo;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
     }
 
     public void setTimestamp(String timestamp) {
