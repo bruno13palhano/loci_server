@@ -44,7 +44,23 @@ public class UserRepository implements UserData<User> {
 
     @Override
     public void update(User user) {
-        String QUERY = "UPDATE users SET username = ?";
+        String QUERY = "UPDATE users SET username = ?, photo = ?, phone = ?, address = ?, city = ?, time_stamp = ? " +
+                "WHERE uid = ?";
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERY);
+            preparedStatement.setString(1, user.getUsername());
+            preparedStatement.setBytes(2, user.getPhoto());
+            preparedStatement.setString(3, user.getPhone());
+            preparedStatement.setString(4, user.getAddress());
+            preparedStatement.setString(5, user.getCity());
+            preparedStatement.setString(6, user.getTimestamp());
+            preparedStatement.setString(7, user.getUid());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -54,6 +70,7 @@ public class UserRepository implements UserData<User> {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY);
             preparedStatement.setString(1, uid);
+
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -62,17 +79,56 @@ public class UserRepository implements UserData<User> {
 
     @Override
     public User getByUsername(String username) {
-        return null;
+        User user = null;
+        String QUERY = "SELECT * FROM users WHERE username = ?";
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERY);
+            preparedStatement.setString(1, username);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            resultSet.next();
+            user = new User(
+                    resultSet.getString("uid"),
+                    resultSet.getString("username"),
+                    resultSet.getString("email"),
+                    resultSet.getString("password"),
+                    resultSet.getBytes("photo"),
+                    resultSet.getString("phone"),
+                    resultSet.getString("address"),
+                    resultSet.getString("city"),
+                    resultSet.getString("role"),
+                    resultSet.getBoolean("enabled"),
+                    resultSet.getString("time_stamp")
+            );
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return user;
     }
 
     @Override
     public Boolean usernameAlreadyExist(String username) {
+        String QUERY = "SELECT username FROM users WHERE username = ?";
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERY);
+            preparedStatement.setString(1, username);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            resultSet.next();
+
+            return resultSet.getString("username").equals(username);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
     @Override
     public Boolean emailAlreadyExist(String email) {
-        String QUERY = "SELECT email FROM users WHERE emal = ?";
+        String QUERY = "SELECT email FROM users WHERE email = ?";
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY);
