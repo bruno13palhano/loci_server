@@ -22,7 +22,7 @@ public class User implements UserDetails {
 
     public User() {}
 
-    public User(String uid, String username, String password, String email, byte[] photo, String phone, String address,
+    public User(String uid, String username, String email, String password, byte[] photo, String phone, String address,
                 String city, String role, Boolean enabled, String timestamp) {
         this.uid = uid;
         this.username = username;
