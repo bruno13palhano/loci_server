@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS users (
     uid VARCHAR(550) NOT NULL,
     username VARCHAR(100) NOT NULL,
     email VARCHAR(50) NOT NULL,
-    password VARCHAR(50) NOT NULL,
+    password VARCHAR(255) NOT NULL,
     photo LONGBLOB,
     phone VARCHAR(20) NOT NULL,
     address VARCHAR(50) NOT NULL,
