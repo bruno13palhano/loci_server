@@ -1,18 +1,18 @@
-package com.bruno13palhano.data.repository;
+package com.bruno13palhano.data.datasource;
 
 import com.bruno13palhano.User;
-import com.bruno13palhano.data.shared.ConnectionFactory;
-import com.bruno13palhano.data.shared.UserData;
+import org.springframework.context.annotation.Configuration;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserRepository implements UserData<User> {
+@Configuration
+public class DefaultUserDataSource implements UserDataSource {
     private final Connection connection;
 
-    public UserRepository(Connection connection) {
+    public DefaultUserDataSource(Connection connection) {
         this.connection = connection;
     }
 
@@ -92,7 +92,7 @@ public class UserRepository implements UserData<User> {
                     resultSet.getString("uid"),
                     resultSet.getString("username"),
                     resultSet.getString("email"),
-                    resultSet.getString("password"),
+                    "",
                     resultSet.getBytes("photo"),
                     resultSet.getString("phone"),
                     resultSet.getString("address"),
@@ -123,7 +123,7 @@ public class UserRepository implements UserData<User> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return false;
     }
 
     @Override
@@ -160,7 +160,7 @@ public class UserRepository implements UserData<User> {
                     resultSet.getString("uid"),
                     resultSet.getString("username"),
                     resultSet.getString("email"),
-                    resultSet.getString("password"),
+                    "",
                     resultSet.getBytes("photo"),
                     resultSet.getString("phone"),
                     resultSet.getString("address"),
@@ -192,7 +192,7 @@ public class UserRepository implements UserData<User> {
                     resultSet.getString("uid"),
                     resultSet.getString("username"),
                     resultSet.getString("email"),
-                    resultSet.getString("password"),
+                    "",
                     resultSet.getBytes("photo"),
                     resultSet.getString("phone"),
                     resultSet.getString("address"),
