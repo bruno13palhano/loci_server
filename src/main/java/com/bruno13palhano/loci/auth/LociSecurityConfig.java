@@ -59,6 +59,7 @@ public class LociSecurityConfig {
                                 .requestMatchers("/v1/users/insert").permitAll()
                                 .requestMatchers("/v1/users/login").permitAll()
                                 .requestMatchers("/v1/users/authenticated").permitAll()
+                                .requestMatchers("/**").permitAll()
                                 .requestMatchers("/v1/**").authenticated()
                 )
                 .formLogin(Customizer.withDefaults())
